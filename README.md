@@ -1,59 +1,108 @@
 # MongoDB Fundamentals - Week 1
+# MongoDB Queries & Scripts
 
-## Setup Instructions
+This project demonstrates basic and advanced MongoDB queries, aggregation pipelines, and indexing operations.  
+It also includes sample data for testing.
 
-Before you begin this assignment, please make sure you have the following installed:
+---
 
-1. **MongoDB Community Edition** - [Installation Guide](https://www.mongodb.com/docs/manual/administration/install-community/)
-2. **MongoDB Shell (mongosh)** - This is included with MongoDB Community Edition
-3. **Node.js** - [Download here](https://nodejs.org/)
+## 📦 Prerequisites
+- **MongoDB** installed locally OR a connection to **MongoDB Atlas**
+- **MongoDB Shell (`mongosh`)** installed
+- (Optional) **MongoDB Compass** for GUI exploration
 
-### Node.js Package Setup
+---
 
-Once you have Node.js installed, run the following commands in your assignment directory:
+## 🚀 Getting Started
 
+### 1. Clone or Download
+Download this project folder and open it in your terminal.
+
+### 2. Start MongoDB
+If using **local MongoDB**:
 ```bash
-# Initialize a package.json file
-npm init -y
+mongod --dbpath /your/data/path
+If using Atlas (cloud):
 
-# Install the MongoDB Node.js driver
-npm install mongodb
-```
+Open MongoDB Compass
 
-## Assignment Overview
+Copy your connection string
 
-This week focuses on MongoDB fundamentals including:
-- Creating and connecting to MongoDB databases
-- CRUD operations (Create, Read, Update, Delete)
-- MongoDB queries and filters
-- Aggregation pipelines
-- Indexing for performance
+Use it in the shell:
 
-## Submission
+bash
+Copy code
+mongosh "mongodb+srv://<your-cluster>.mongodb.net/<your-db>" --username <your-user>
+📂 Files
+queries.js → Contains all the queries (basic, advanced, aggregations, indexing).
 
-Complete all the exercises in this assignment and push your code to GitHub using the provided GitHub Classroom link.
+sampleData.js → Inserts test data into the books collection.
 
-## Getting Started
+README.md → Documentation (this file).
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install MongoDB locally or set up a MongoDB Atlas account
-4. Run the provided `insert_books.js` script to populate your database
-5. Complete the tasks in the assignment document
+📝 Running the Scripts
+1. Insert Sample Data
+Run in shell:
 
-## Files Included
+bash
+Copy code
+mongosh < sampleData.js
+This will create the books collection and insert documents.
 
-- `Week1-Assignment.md`: Detailed assignment instructions
-- `insert_books.js`: Script to populate your MongoDB database with sample book data
+2. Run Queries
+Run:
 
-## Requirements
+bash
+Copy code
+mongosh < queries.js
+Alternatively, you can open the shell and paste individual commands from queries.js.
 
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
-- MongoDB Shell (mongosh) or MongoDB Compass
+📚 Queries Included
+Basic Queries
+Find all books in a specific genre
 
-## Resources
+Find books published after a certain year
 
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [MongoDB University](https://university.mongodb.com/)
-- [MongoDB Node.js Driver](https://mongodb.github.io/node-mongodb-native/) 
+Find books by a specific author
+
+Update the price of a specific book
+
+Delete a book by its title
+
+Advanced Queries
+Find books that are in stock and published after 2010
+
+Use projection to return only title, author, and price
+
+Sort by price (ascending/descending)
+
+Implement pagination (5 books per page)
+
+Aggregation Pipelines
+Calculate the average price of books by genre
+
+Find the author with the most books
+
+Group books by decade and count them
+
+Indexing
+Create an index on title
+
+Create a compound index on author and published_year
+
+Use explain() to demonstrate query performance with indexes
+
+✅ Example
+js
+Copy code
+// Find programming books published after 2010
+db.books.find(
+  { genre: "Programming", published_year: { $gt: 2010 } },
+  { title: 1, author: 1, price: 1, _id: 0 }
+).pretty()
+
+## 📸 Sample Data in MongoDB Compass
+
+Here’s a view of the `books` collection with sample documents:
+
+![Sample data in Compass](screenshots\compass-sample.png)
